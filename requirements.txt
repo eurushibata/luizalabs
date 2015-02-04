@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+flask-script
+requests
+marshmallow
