@@ -3,11 +3,12 @@ python:
   - "2.7"
 env:
   global:
-    - APP_SETTINGS=config.TestingConfig
+    - APP_SETTINGS=config.DevelopmentConfig
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: "pip install -r requirements.txt"
 # command to run tests, e.g. python setup.py test
 script:
-  - python manage.py test
+  - python manage.py createdb
+  - python manage.py runserver
 after_success:
   - coveralls
