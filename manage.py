@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os, sys
+import coverage
 
 from flask.ext.script import Manager, Server
 from fb import app
@@ -20,11 +21,35 @@ def createdb():
 @manager.command
 def test():
     '''
-    Runs tests
+    Runs unit tests
     '''
     TESTING = True
-    import test
+    
+    from fb import test
     test.run()
+
+@manager.command
+def cov():
+    """
+    Runs the unit tests with coverage.
+    """
+    cov = coverage.coverage(
+        branch=True,
+        include=['fb/*.py', 'manage.py']
+    )
+    cov.start()
+
+    from fb import test
+    test.run()
+
+    cov.stop()
+    cov.save()
+    print 'Coverage Summary:'
+    cov.report()
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    covdir = os.path.join(basedir, 'coverage')
+    cov.html_report(directory=covdir)
+    cov.erase()
 
 if __name__ == "__main__":
     manager.run()

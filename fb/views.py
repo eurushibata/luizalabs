@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request
-from flask.views import MethodView
-from sqlalchemy.exc import IntegrityError
-from marshmallow import Schema, fields
-import requests
-from models import Person
-from fb import db
+from flask import jsonify, request # pragma: no cover
+from flask.views import MethodView # pragma: no cover
+from sqlalchemy.exc import IntegrityError # pragma: no cover
+from marshmallow import Schema, fields # pragma: no cover
+import requests # pragma: no cover
+from models import Person # pragma: no cover
+from fb import db # pragma: no cover
 
 class PersonSchema(Schema):
     class Meta:
