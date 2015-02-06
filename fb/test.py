@@ -36,7 +36,9 @@ P1P2 = {
                 "username": "ofemerson"
                 }]}
 
-class FbTestCase(unittest.TestCase):
+class PersonTestCase(unittest.TestCase):
+
+class FbViewTestCase(unittest.TestCase):
 
     def setUp(self):
 
@@ -164,7 +166,15 @@ class FbTestCase(unittest.TestCase):
         self.assertEqual(json.loads(response.data), {'error': 'Not found.'})
 
 def run():
-    unittest.TextTestRunner().run(unittest.makeSuite(FbTestCase))
+    import os
+
+    basedir = os.path.abspath(os.path.dirname(__file__))
+
+    try:
+        unittest.TextTestRunner().run(unittest.makeSuite(FbViewTestCase))
+    except:
+        pass
+
 
 if __name__ == '__main__':
     run()
