@@ -36,8 +36,6 @@ P1P2 = {
                 "username": "ofemerson"
                 }]}
 
-class PersonTestCase(unittest.TestCase):
-
 class FbViewTestCase(unittest.TestCase):
 
     def setUp(self):
