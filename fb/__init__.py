@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import Flask
-import logging
 import os
 import sys
+import logging
+from logging.handlers import RotatingFileHandler
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -18,6 +19,13 @@ except KeyError:
     "i.e.: export APP_SETTINGS='config.DevelopmentConfig'"
     sys.exit(0)
 
+if not app.config['TESTING']:
+    file_handler = RotatingFileHandler('fb.log', 'a', 100000000, 10)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    app.logger.setLevel(logging.INFO)
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+
 from fb.models import db
 db.init_app(app)
 
@@ -29,5 +37,5 @@ app.add_url_rule('/person', defaults={'person_id': None},view_func=person_view,
 app.add_url_rule('/person/<int:person_id>', view_func=person_view,
                     methods=['GET','DELETE'])
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     app.run()

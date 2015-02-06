@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import os, sys
+import os
+import sys
 import coverage
 
 from flask.ext.script import Manager, Server
@@ -16,6 +17,7 @@ manager.add_command("runserver", Server(
 @manager.command
 def createdb():
     from fb import db
+    app.logger.info('db created')
     db.create_all()
 
 @manager.command
